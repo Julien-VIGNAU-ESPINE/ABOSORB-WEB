@@ -4,8 +4,8 @@
  */
 
 document.addEventListener('DOMContentLoaded', () => {
-    // Remove no-js flag for CSS fallbacks
-    document.body.classList.remove('no-js');
+    // Initiation of immersive sequence
+    initImmersiveSequence();
 
     initHeader();
     initScrollAnimations();
@@ -13,22 +13,66 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 /**
+ * Handles the preloader and entrance animations
+ */
+function initImmersiveSequence() {
+    const preloader = document.getElementById('preloader');
+
+    // Trigger on window fully loaded to ensure assets are ready
+    window.addEventListener('load', () => {
+        setTimeout(() => {
+            if (preloader) {
+                // Start ripple effect
+                preloader.classList.add('ripple-active');
+
+                setTimeout(() => {
+                    // Fade out preloader and show site
+                    preloader.classList.add('fade-out');
+                    document.body.classList.remove('no-js');
+                    document.body.classList.add('loaded');
+
+                }, 1200); // Expanded wait for the 2s ripple
+            }
+        }, 1000); // Premium pause on Petroleum Blue
+    });
+}
+
+/**
  * Navigation Header Management
  * Handles scroll-based styling and transparency
  */
 function initHeader() {
     const header = document.getElementById('main-header');
+    const heroActions = document.querySelector('.hero-actions');
     if (!header) return;
 
     const handleScroll = () => {
-        if (window.scrollY > 50) {
+        const scrollY = window.scrollY;
+
+        // Header reveal on scroll
+        if (scrollY > 150) {
+            header.style.opacity = '1';
+            header.style.transform = 'translateY(0)';
             header.style.padding = '0.75rem 0';
             header.style.backgroundColor = 'rgba(255, 255, 255, 0.9)';
             header.style.borderBottom = '1px solid rgba(0, 0, 0, 0.05)';
         } else {
+            header.style.opacity = '0';
+            header.style.transform = 'translateY(-20px)';
             header.style.padding = '1.25rem 0';
-            header.style.backgroundColor = 'rgba(255, 255, 255, 0.2)';
-            header.style.borderBottom = '1px solid rgba(255, 255, 255, 0.1)';
+            header.style.backgroundColor = 'transparent';
+            header.style.borderBottom = 'none';
+        }
+
+        // Hero buttons reveal on scroll
+        if (heroActions) {
+            if (scrollY > 60) {
+                heroActions.style.opacity = '1';
+                heroActions.style.transform = 'translateY(0)';
+            } else {
+                heroActions.style.opacity = '0';
+                heroActions.style.transform = 'translateY(20px)';
+            }
         }
     };
 

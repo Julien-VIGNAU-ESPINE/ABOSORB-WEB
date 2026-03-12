@@ -122,7 +122,149 @@ body::before {
     justify-content: center;
 }
 
-/* Glassmorphism */
+/* Preloader & Snappy Reveal */
+#preloader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #083344;
+    /* Petroleum Blue */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+}
+
+.loader-logo {
+    font-size: 3rem;
+    font-weight: 800;
+    letter-spacing: -0.05em;
+    color: #ffffff;
+    position: relative;
+    z-index: 101;
+}
+
+.loader-logo .dot {
+    color: var(--clr-primary);
+}
+
+.ripple-reveal {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: #ffffff;
+    border-radius: 50%;
+    z-index: 100;
+    transform: scale(0);
+    pointer-events: none;
+    will-change: transform;
+}
+
+.ripple-active .ripple-reveal {
+    animation: rippleSmooth 2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes rippleSmooth {
+    0% {
+        transform: scale(0);
+        opacity: 0;
+    }
+
+    5% {
+        opacity: 1;
+    }
+
+    100% {
+        transform: scale(1000);
+        opacity: 1;
+    }
+}
+
+#preloader.fade-out {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease;
+}
+
+/* Entrance Animations */
+.section-hero {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    background: #000;
+    /* Placeholder while image loads */
+}
+
+.hero-bg-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('hero-hybrid.png') no-repeat center center/cover;
+    z-index: 0;
+    transform: scale(1.1);
+    transition: transform 8s cubic-bezier(0.1, 0, 0, 1);
+}
+
+.loaded .hero-bg-wrapper {
+    transform: scale(1);
+}
+
+.section-hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.3) 100%),
+        linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.6) 100%);
+    z-index: 1;
+}
+
+.hero-content h1 {
+    font-size: clamp(3.5rem, 12vw, 9rem);
+    line-height: 0.85;
+    margin-bottom: var(--space-md);
+    letter-spacing: -0.08em;
+    font-weight: 800;
+    opacity: 0;
+    transform: translateY(40px) scale(0.95);
+    transition: all 1.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.hero-content p {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 1s cubic-bezier(0.2, 0.8, 0.2, 1) 0.3s;
+}
+
+.hero-actions {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 1s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+header {
+    opacity: 0;
+    transform: translateY(-20px);
+    transition: all 1s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.loaded .hero-content h1,
+.loaded .hero-content p {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+}
+
+/* Glassmorphism Refinement */
 .glass {
     background: rgba(255, 255, 255, 0.7);
     backdrop-filter: blur(12px);
@@ -162,6 +304,12 @@ header {
     width: 100%;
     z-index: 1000;
     padding: var(--space-sm) 0;
+    opacity: 0;
+    transform: translateY(-20px);
+    transition: opacity 1s cubic-bezier(0.2, 0.8, 0.2, 1),
+        transform 1s cubic-bezier(0.2, 0.8, 0.2, 1),
+        padding var(--transition-smooth),
+        background-color var(--transition-smooth);
 }
 
 .nav-bar {
