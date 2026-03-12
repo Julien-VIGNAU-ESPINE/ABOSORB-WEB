@@ -8,7 +8,7 @@
     --clr-primary: #0ea5e9;
     --clr-secondary: #06b6d4;
     --clr-accent: #38bdf8;
-    --clr-text-main: #020617;
+    --clr-text-main: #08415d;
     --clr-text-muted: #64748b;
 
     /* Gradients */
@@ -144,6 +144,13 @@ body::before {
     color: #ffffff;
     position: relative;
     z-index: 101;
+    transition: color 0.8s ease;
+    /* Smooth transition when ripple starts */
+}
+
+.ripple-active .loader-logo {
+    color: var(--clr-text-main);
+    /* Becomes Petroleum Blue when white background hits */
 }
 
 .loader-logo .dot {
@@ -407,20 +414,47 @@ header {
     max-width: 900px;
 }
 
+.hero-content {
+    position: relative;
+    display: inline-block;
+    padding: var(--space-md) var(--space-xl);
+}
+
+/* Atmospheric Mist for Modern Legibility */
+.hero-content::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 140%;
+    height: 120%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.7) 0%, transparent 70%);
+    filter: blur(50px);
+    z-index: -1;
+    pointer-events: none;
+    opacity: 0.9;
+}
+
 .hero-content h1 {
     font-size: clamp(3.5rem, 12vw, 8rem);
-    line-height: 0.9;
+    line-height: 0.95;
     margin-bottom: var(--space-md);
     letter-spacing: -0.07em;
     font-weight: 800;
+    color: var(--clr-text-main);
 }
 
 .hero-subtitle {
-    font-size: 1.4rem;
+    font-size: clamp(1.2rem, 4vw, 1.8rem);
     color: var(--clr-text-main);
     margin: 0 auto var(--space-lg);
-    max-width: 600px;
-    opacity: 0.9;
+    max-width: 800px;
+    opacity: 1;
+    font-weight: 600;
+    text-shadow: 0 4px 30px rgba(255, 255, 255, 1), 0 0 10px rgba(255, 255, 255, 0.5);
+    line-height: 1.5;
+    letter-spacing: 0.01em;
 }
 
 .hero-actions {
@@ -439,8 +473,8 @@ header {
 }
 
 .mouse {
-    width: 26px;
-    height: 42px;
+    width: 35px;
+    height: 60px;
     border: 2px solid var(--clr-text-main);
     border-radius: 20px;
     position: relative;
@@ -569,18 +603,49 @@ header {
     margin-top: var(--space-lg);
 }
 
-.stat-num {
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 3rem;
-    font-weight: 700;
-    display: block;
+.stat-num,
+.stat-unit {
+    font-family: 'Sora', sans-serif;
+    font-size: 3.5rem;
+    font-weight: 800;
+}
+
+.stat-unit {
+    margin-left: 2px;
 }
 
 .stat-label {
-    font-size: 0.8rem;
+    font-size: 0.9rem;
     text-transform: uppercase;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.05em;
     color: var(--clr-text-muted);
+    font-weight: 500;
+    margin-top: -5px;
+    display: block;
+}
+
+/* Staggered Reveal Items */
+.reveal-item {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.reveal-item.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.reveal-stagger .reveal-item:nth-child(1) {
+    transition-delay: 0.1s;
+}
+
+.reveal-stagger .reveal-item:nth-child(2) {
+    transition-delay: 0.2s;
+}
+
+.reveal-stagger .reveal-item:nth-child(3) {
+    transition-delay: 0.3s;
 }
 
 .impact-viz {

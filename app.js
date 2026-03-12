@@ -31,7 +31,7 @@ function initImmersiveSequence() {
                     document.body.classList.remove('no-js');
                     document.body.classList.add('loaded');
 
-                }, 1200); // Expanded wait for the 2s ripple
+                }, 600); // Expanded wait for the 2s ripple
             }
         }, 1000); // Premium pause on Petroleum Blue
     });
@@ -80,12 +80,38 @@ function initHeader() {
     handleScroll(); // Init state
 }
 
+function initStatCounters() {
+    const stats = document.querySelectorAll('.stat-num');
+
+    stats.forEach(stat => {
+        const target = parseInt(stat.getAttribute('data-target'));
+        const duration = 2000; // 2 seconds
+        let startTime = null;
+
+        function animate(timestamp) {
+            if (!startTime) startTime = timestamp;
+            const progress = Math.min((timestamp - startTime) / duration, 1);
+            const current = Math.floor(progress * target);
+
+            stat.textContent = current;
+
+            if (progress < 1) {
+                requestAnimationFrame(animate);
+            } else {
+                stat.textContent = target;
+            }
+        }
+
+        requestAnimationFrame(animate);
+    });
+}
+
 /**
  * Scroll Reveal Animations
  * Uses IntersectionObserver for high performance
  */
 function initScrollAnimations() {
-    const revealElements = document.querySelectorAll('.reveal');
+    const revealElements = document.querySelectorAll('.reveal, .reveal-item');
 
     const observerOptions = {
         threshold: 0.15,
@@ -96,6 +122,12 @@ function initScrollAnimations() {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('active');
+
+                // Trigger stat counters if this is the impact section
+                if (entry.target.closest('#impact')) {
+                    setTimeout(initStatCounters, 400); // Small delay for visual sync
+                }
+
                 observers.unobserve(entry.target);
             }
         });
@@ -117,7 +149,7 @@ function initFiltrationSim() {
     let w, h;
     let particles = [];
     let mouse = { x: -1000, y: -1000 };
-    const particleCount = 250;
+    const particleCount = 400;
     const filterZonePercent = 0.65; // Zone positioned at 65% of width
 
     // Robust resizing using ResizeObserver
@@ -156,61 +188,85 @@ function initFiltrationSim() {
         }
 
         init(randomX = false) {
-            this.x = randomX ? Math.random() * w : -10;
+            this.x = randomX ? Math.random() * w : -20;
             this.y = Math.random() * h;
-            this.size = Math.random() * 1.5 + 0.5;
-            this.baseSpeed = Math.random() * 1.5 + 1;
+            this.size = Math.random() * 2 + 0.5;
+            this.baseSpeed = Math.random() * 1.5 + 0.8;
             this.speedX = this.baseSpeed;
             this.isClean = this.x > w * filterZonePercent;
-            this.hue = this.isClean ? 200 : 210; // Blue vs Dark Grey-Blue
-            this.saturation = this.isClean ? 80 : 10;
-            this.lightness = this.isClean ? 60 : 30;
-            this.opacity = Math.random() * 0.5 + 0.2;
+
+            // Movement parameters
+            this.angle = Math.random() * Math.PI * 2;
+            this.angleSpeed = Math.random() * 0.05 + 0.02;
+            this.amplitude = Math.random() * 1.5;
+
+            // Visual parameters
+            this.updateAppearance();
+            this.opacity = Math.random() * 0.6 + 0.3;
+        }
+
+        updateAppearance() {
+            if (this.isClean) {
+                this.hue = 200; // Bright Blue
+                this.saturation = 80;
+                this.lightness = 65;
+            } else {
+                this.hue = 210; // Dark / Muddy oily color
+                this.saturation = 20;
+                this.lightness = 25;
+            }
         }
 
         update() {
+            // Wave movement
+            this.angle += this.angleSpeed;
+            this.y += Math.sin(this.angle) * this.amplitude;
+
             this.x += this.speedX;
 
             // Filtration logic
             const filterX = w * filterZonePercent;
             if (!this.isClean && this.x > filterX) {
-                this.isClean = true;
-                this.lightness = 60;
-                this.saturation = 80;
-                this.hue = 200;
-                this.speedX = this.baseSpeed * 1.4; // Clean water flows faster
+                this.triggerPurification();
             }
 
-            // Mouse interaction - "Clean" water on touch
+            // Mouse interaction - Active cleaning
             const dx = this.x - mouse.x;
             const dy = this.y - mouse.y;
             const dist = Math.sqrt(dx * dx + dy * dy);
-            if (dist < 60 && !this.isClean) {
-                this.isClean = true;
-                this.lightness = 70;
-                this.saturation = 100;
-                this.hue = 190;
+            if (dist < 80 && !this.isClean) {
+                this.triggerPurification(true);
             }
 
             // Reset when off screen
-            if (this.x > w + 20) {
+            if (this.x > w + 40) {
                 this.init(false);
             }
         }
 
+        triggerPurification(isMouse = false) {
+            this.isClean = true;
+            this.updateAppearance();
+            this.speedX = this.baseSpeed * (isMouse ? 2 : 1.5);
+            if (isMouse) {
+                this.lightness = 80;
+                this.saturation = 100;
+            }
+        }
+
         draw() {
+            ctx.save();
             ctx.fillStyle = `hsla(${this.hue}, ${this.saturation}%, ${this.lightness}%, ${this.opacity})`;
+
+            if (this.isClean) {
+                ctx.shadowBlur = 8;
+                ctx.shadowColor = `hsla(${this.hue}, 100%, 70%, 0.6)`;
+            }
+
             ctx.beginPath();
             ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
             ctx.fill();
-
-            // Glow for clean particles
-            if (this.isClean) {
-                ctx.shadowBlur = 4;
-                ctx.shadowColor = `hsla(${this.hue}, 100%, 70%, 0.5)`;
-            } else {
-                ctx.shadowBlur = 0;
-            }
+            ctx.restore();
         }
     }
 
@@ -223,31 +279,49 @@ function initFiltrationSim() {
 
     function drawInfrastructure() {
         const fx = w * filterZonePercent;
+        const time = Date.now() * 0.002;
+        const pulse = Math.sin(time) * 10 + 20;
 
-        // The Glow Zone
-        const grad = ctx.createLinearGradient(fx - 20, 0, fx + 20, 0);
+        // The Glow Zone - Dynamic Pulse
+        const grad = ctx.createLinearGradient(fx - 40, 0, fx + 40, 0);
         grad.addColorStop(0, 'rgba(14, 165, 233, 0)');
-        grad.addColorStop(0.5, 'rgba(34, 211, 238, 0.2)');
+        grad.addColorStop(0.5, `rgba(34, 211, 238, ${0.1 + Math.sin(time * 0.5) * 0.05})`);
         grad.addColorStop(1, 'rgba(14, 165, 233, 0)');
 
         ctx.fillStyle = grad;
-        ctx.fillRect(fx - 30, 0, 60, h);
+        ctx.fillRect(fx - 40, 0, 80, h);
 
-        // Tech Line
+        // Tech Line with Scanning effect
         ctx.strokeStyle = 'rgba(34, 211, 238, 0.4)';
-        ctx.setLineDash([10, 15]);
-        ctx.lineWidth = 1;
+        ctx.setLineDash([5, 10]);
+        ctx.lineWidth = 2;
         ctx.beginPath();
         ctx.moveTo(fx, 0);
         ctx.lineTo(fx, h);
         ctx.stroke();
         ctx.setLineDash([]);
 
-        // Interactive Label
-        ctx.fillStyle = 'rgba(34, 211, 238, 0.8)';
-        ctx.font = '600 10px Inter';
-        ctx.letterSpacing = '1px';
-        ctx.fillText('ZONE DE FILTRATION ABSORB', fx + 15, 25);
+        // Scanning Dot
+        const scanY = (Date.now() * 0.1) % (h + 100) - 50;
+        ctx.fillStyle = '#22d3ee';
+        ctx.shadowBlur = 15;
+        ctx.shadowColor = '#22d3ee';
+        ctx.beginPath();
+        ctx.arc(fx, scanY, 3, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.shadowBlur = 0;
+
+        // Interactive Label - Sober & Modern
+        ctx.fillStyle = 'rgba(34, 211, 238, 0.6)';
+        ctx.font = '700 9px Sora, sans-serif';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+
+        ctx.save();
+        ctx.translate(fx + 20, h / 2);
+        ctx.rotate(Math.PI / 2);
+        ctx.fillText('FILTRATION ACTIVE', 0, 0);
+        ctx.restore();
     }
 
     function animate() {
