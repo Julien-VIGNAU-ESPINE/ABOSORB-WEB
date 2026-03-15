@@ -320,7 +320,7 @@ function initFiltrationSim() {
         ctx.save();
         ctx.translate(fx + 20, h / 2);
         ctx.rotate(Math.PI / 2);
-        ctx.fillText('FILTRATION ACTIVE', 0, 0);
+        ctx.fillText('OVICELL ACTIVE - ABSORB', 0, 0);
         ctx.restore();
     }
 

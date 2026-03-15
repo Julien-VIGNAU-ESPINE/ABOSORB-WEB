@@ -548,40 +548,76 @@ header {
     margin-bottom: var(--space-sm);
 }
 
-.tech-grid {
+/* Tech Pillars Structure - For maximum clarity */
+.tech-pillars {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(4, 1fr);
     gap: var(--space-md);
+    margin-top: var(--space-xl);
 }
 
-.tech-card {
-    padding: var(--space-lg);
+.pillar-card {
+    padding: var(--space-xl) var(--space-lg);
+    position: relative;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    transition: all 0.4s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
     border-radius: var(--radius-md);
-    transition: var(--transition-smooth);
+}
+
+.pillar-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--clr-primary);
     background: white;
-    border: 1px solid rgba(0, 0, 0, 0.03);
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.01);
 }
 
-.tech-card:hover {
-    transform: translateY(-8px);
-    box-shadow: var(--shadow-main);
+.pillar-num {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-family: 'Sora', sans-serif;
+    font-weight: 800;
+    font-size: 2rem;
+    color: rgba(0, 0, 0, 0.03);
+    line-height: 1;
 }
 
-.tech-card i {
+.pillar-card:hover .pillar-num {
+    color: rgba(14, 165, 233, 0.1);
+}
+
+.pillar-card i {
+    width: 42px;
+    height: 42px;
     color: var(--clr-primary);
-    width: 48px;
-    height: 48px;
     margin-bottom: var(--space-md);
 }
 
-.tech-card h3 {
+.pillar-card h3 {
+    font-size: 1.25rem;
     margin-bottom: var(--space-sm);
-    font-size: 1.4rem;
+    color: var(--clr-text-main);
 }
 
-.tech-card p {
+.pillar-card p {
+    font-size: 0.95rem;
     color: var(--clr-text-muted);
+    line-height: 1.5;
+}
+
+@media (max-width: 1024px) {
+    .tech-pillars {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width: 640px) {
+    .tech-pillars {
+        grid-template-columns: 1fr;
+    }
 }
 
 /* Impact Section */
@@ -659,6 +695,113 @@ header {
     border-radius: var(--radius-md);
     overflow: hidden;
     cursor: crosshair;
+}
+
+/* Alliance Layout 5.0 - Cinematic & Impactful */
+.ecosystem-dark {
+    background: #083344;
+    color: white;
+}
+
+/* Alliance Classic 7.0 - Balanced & Informative */
+/* Manifesto Section 8.0 - Editorial High-End */
+/* Eco Simple 10.0 - Clean & Direct */
+.eco-simple {
+    background: #083344;
+    color: white;
+}
+
+.eco-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-xxl);
+    align-items: center;
+}
+
+.eco-image {
+    position: relative;
+}
+
+.eco-text .big-title {
+    font-size: 4.5rem;
+    line-height: 1;
+    margin-bottom: var(--space-lg);
+}
+
+.eco-image img {
+    width: 100%;
+    display: block;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+}
+
+.eco-text .lead {
+    font-size: 1.25rem;
+    line-height: 1.6;
+    margin-bottom: var(--space-lg);
+    color: white;
+}
+
+.eco-text p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: var(--space-xl);
+}
+
+.eco-stats-simple {
+    display: flex;
+    gap: var(--space-xl);
+}
+
+.stat-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.stat-item strong {
+    font-size: 2.5rem;
+    color: var(--clr-primary);
+    font-family: 'Sora', sans-serif;
+    line-height: 1;
+}
+
+.stat-item span {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: rgba(255, 255, 255, 0.5);
+    margin-top: 5px;
+}
+
+@media (max-width: 968px) {
+    .eco-grid {
+        grid-template-columns: 1fr;
+        gap: var(--space-xl);
+    }
+}
+
+@media (max-width: 1024px) {
+    .eco-composition {
+        grid-template-columns: 1fr;
+        gap: var(--space-xxl);
+    }
+
+    .stat-overlay {
+        right: 0;
+        top: -30px;
+    }
+
+    .eco-quote-floating {
+        position: relative;
+        bottom: 0;
+        left: 0;
+        margin-top: var(--space-lg);
+        max-width: 100%;
+    }
+
+    .content-header h2 {
+        font-size: 3rem;
+    }
 }
 
 #filtration-sim {

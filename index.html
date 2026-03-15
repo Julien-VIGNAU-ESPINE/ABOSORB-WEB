@@ -62,28 +62,70 @@
         <!-- Technology Section -->
         <section id="tech" class="section-padding">
             <div class="container">
-                <div class="section-header text-center reveal">
-                    <h2 class="font-heading">La Technologie <span class="text-gradient">Hexa-Mesh</span></h2>
-                    <p>Une efficacité inégalée grâce à une structure biomimétique.</p>
-                </div>
+                <div class="tech-pillars reveal">
+                    <!-- Pillar 01 -->
+                    <div class="pillar-card glass">
+                        <div class="pillar-num">01</div>
+                        <i data-lucide="droplets"></i>
+                        <h3>Principe Actif</h3>
+                        <p>Nous exploitons la lanoline moléculaire pour capturer les hydrocarbures par affinité
+                            naturelle.</p>
+                    </div>
 
-                <div class="tech-grid reveal">
-                    <div class="tech-card glass">
-                        <i data-lucide="shield-check"></i>
-                        <h3>Filtration Passive</h3>
-                        <p>Fonctionne sans source d'énergie externe, utilisant les courants naturels pour capturer les
-                            polluants.</p>
+                    <!-- Pillar 02 -->
+                    <div class="pillar-card glass">
+                        <div class="pillar-num">02</div>
+                        <i data-lucide="component"></i>
+                        <h3>Cellule Ovicell</h3>
+                        <p>Une unité de 1m x 25cm. Un maillage de laine haute densité pour 10L d'absorption.</p>
                     </div>
-                    <div class="tech-card glass">
-                        <i data-lucide="zap"></i>
-                        <h3>Hydrophobe</h3>
-                        <p>Matériaux avancés repoussant l'eau tout en attirant intensément les hydrocarbures.</p>
+
+                    <!-- Pillar 03 -->
+                    <div class="pillar-card glass">
+                        <div class="pillar-num">03</div>
+                        <i data-lucide="wrench"></i>
+                        <h3>Pose & Suivi</h3>
+                        <p>Nos équipes installent et surveillent vos parcs d'Ovicells pour une protection h24.</p>
                     </div>
-                    <div class="tech-card glass">
-                        <i data-lucide="layout-grid"></i>
-                        <h3>Modulaire</h3>
-                        <p>La forme hexagonale permet un maillage parfait et adaptable à toutes les tailles de bassins.
-                        </p>
+
+                    <!-- Pillar 04 -->
+                    <div class="pillar-card glass">
+                        <div class="pillar-num">04</div>
+                        <i data-lucide="refresh-cw"></i>
+                        <h3>Recyclage</h3>
+                        <p>Collecte et valorisation finale des polluants. Une traçabilité environnementale totale.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="ecosystem" class="section-padding eco-simple">
+            <div class="container">
+                <div class="eco-grid reveal">
+                    <div class="eco-image">
+                        <img src="absorb_shepherd_alliance_1773613176227.png" alt="Alliance avec les éleveurs"
+                            class="radius-lg">
+                    </div>
+                    <div class="eco-text">
+                        <span class="abs-label">Solidarité & Environnement</span>
+                        <h2 class="font-heading big-title">Sauver une Ressource <span
+                                class="text-gradient">Sacrifiée</span></h2>
+                        <p class="lead">Aujourd'hui en France, <strong>90% de la laine</strong> est jetée, brûlée ou
+                            enfouie. Les éleveurs et bergers sont contraints de s'en débarrasser comme d'un déchet
+                            encombrant.</p>
+                        <p>ABSORB brise ce cycle d'abandon. Nous rachetons cette laine directement aux <strong>éleveurs
+                                et bergers</strong> au prix le plus juste. En soutenant leur travail, nous créons le
+                            bouclier le plus efficace pour protéger nos océans.</p>
+                        <div class="eco-stats-simple">
+                            <div class="stat-item">
+                                <strong>90%</strong>
+                                <span>Gaspillage actuel</span>
+                            </div>
+                            <div class="stat-item">
+                                <strong>100%</strong>
+                                <span>Valorisé par ABSORB</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -94,9 +136,9 @@
             <div class="container">
                 <div class="impact-content reveal">
                     <div class="impact-text">
-                        <h2 class="font-heading">Impact Environnemental</h2>
-                        <p>Chaque cellule ABSORB peut capturer jusqu'à 50 litres d'hydrocarbures par cycle, garantissant
-                            une eau claire et sûre pour la biodiversité marine.</p>
+                        <h2 class="font-heading">Capacité d'Absorption</h2>
+                        <p>Chaque cellule Ovicell est une unité de filtration radicale capable de piéger jusqu'à 10
+                            litres d'hydrocarbures par cycle.</p>
                         <div class="stat-group reveal-stagger">
                             <div class="stat-item reveal-item">
                                 <span class="stat-num text-gradient" data-target="98">0</span><span
@@ -111,7 +153,6 @@
                         </div>
                     </div>
                     <div class="impact-viz">
-                        <!-- Simulation/Visualization placeholder filled by JS -->
                         <div id="filtration-canvas-container" class="glass">
                             <canvas id="filtration-sim"></canvas>
                         </div>
