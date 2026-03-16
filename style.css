@@ -123,6 +123,23 @@ body::before {
     justify-content: center;
 }
 
+.text-center {
+    text-align: center;
+}
+
+.abs-label {
+    display: inline-block;
+    padding: 0.4rem 1rem;
+    background: rgba(14, 165, 233, 0.1);
+    color: var(--clr-primary);
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    border-radius: 100px;
+    margin-bottom: var(--space-md);
+}
+
 /* Preloader & Snappy Reveal */
 #preloader {
     position: fixed;
@@ -540,6 +557,10 @@ header {
 }
 
 /* Tech Section */
+#tech {
+    background-color: var(--clr-surface-muted);
+}
+
 .section-header {
     margin-bottom: var(--space-xl);
 }
@@ -549,7 +570,7 @@ header {
     margin-bottom: var(--space-sm);
 }
 
-/* Tech Pillars Structure - For maximum clarity */
+/* Tech Pillars Structure */
 .tech-pillars {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -558,47 +579,76 @@ header {
 }
 
 .pillar-card {
-    padding: var(--space-xl) var(--space-lg);
+    padding: var(--space-xl) var(--space-md);
     position: relative;
-    border: 1px solid rgba(0, 0, 0, 0.05);
-    transition: all 0.4s ease;
+    background: white;
+    border: 1px solid var(--clr-surface-muted);
+    border-radius: var(--radius-md);
+    transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
-    border-radius: var(--radius-md);
+    overflow: hidden;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+.pillar-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: var(--grad-primary);
+    transform: scaleX(0);
+    transition: transform 0.5s ease;
+    transform-origin: left;
 }
 
 .pillar-card:hover {
-    transform: translateY(-5px);
-    border-color: var(--clr-primary);
-    background: white;
+    transform: translateY(-12px);
+    box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.1),
+        0 18px 36px -18px rgba(0, 0, 0, 0.05);
+    border-color: rgba(14, 165, 233, 0.2);
+}
+
+.pillar-card:hover::before {
+    transform: scaleX(1);
 }
 
 .pillar-num {
     position: absolute;
-    top: 15px;
+    top: 20px;
     right: 20px;
-    font-family: 'Sora', sans-serif;
+    font-family: 'Outfit', sans-serif;
     font-weight: 800;
-    font-size: 2rem;
-    color: rgba(0, 0, 0, 0.03);
-    line-height: 1;
+    font-size: 1.2rem;
+    color: var(--clr-surface-muted);
+    transition: color 0.5s ease;
 }
 
 .pillar-card:hover .pillar-num {
-    color: rgba(14, 165, 233, 0.1);
+    color: var(--clr-primary);
+    opacity: 0.3;
 }
 
-.pillar-card i {
-    width: 42px;
-    height: 42px;
+.pillar-card i,
+.pillar-card svg {
+    width: 50px !important;
+    height: 55px !important;
+    stroke-width: 1.5px;
     color: var(--clr-primary);
     margin-bottom: var(--space-md);
+    transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.pillar-card:hover i {
+    transform: scale(1.1) rotate(5deg);
 }
 
 .pillar-card h3 {
-    font-size: 1.25rem;
+    font-size: 1.4rem;
     margin-bottom: var(--space-sm);
     color: var(--clr-text-main);
 }
@@ -606,7 +656,7 @@ header {
 .pillar-card p {
     font-size: 0.95rem;
     color: var(--clr-text-muted);
-    line-height: 1.5;
+    line-height: 1.6;
 }
 
 @media (max-width: 1024px) {
