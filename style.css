@@ -886,15 +886,34 @@ header {
 
 /* Footer style extensions */
 footer {
-    background: var(--clr-surface);
+    background: #030712;
+    color: white;
 }
 
 .footer-grid {
     display: grid;
     grid-template-columns: 2fr 1fr 1.5fr;
     gap: var(--space-lg);
-    border-top: 1px solid var(--clr-surface-muted);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
     padding-top: var(--space-xl);
+}
+
+.footer-info h3,
+.footer-links h4,
+.footer-contact h4 {
+    color: white;
+    margin-bottom: var(--space-sm);
+}
+
+.footer-info p,
+.footer-links a,
+.footer-contact p {
+    color: rgba(255, 255, 255, 0.6);
+    transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+    color: var(--clr-primary);
 }
 
 .socials {
@@ -905,7 +924,7 @@ footer {
 
 .socials i {
     cursor: pointer;
-    color: var(--clr-text-muted);
+    color: rgba(255, 255, 255, 0.6);
 }
 
 .socials i:hover {
@@ -916,7 +935,7 @@ footer {
     margin-top: var(--space-lg);
     padding-top: var(--space-md);
     border-top: 1px solid rgba(255, 255, 255, 0.05);
-    color: var(--clr-text-muted);
+    color: rgba(255, 255, 255, 0.4);
     font-size: 0.8rem;
 }
 
