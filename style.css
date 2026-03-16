@@ -20,6 +20,7 @@
     --space-md: 2rem;
     --space-lg: 4rem;
     --space-xl: 8rem;
+    --space-xxl: 12rem;
 
     /* Misc */
     --radius-sm: 12px;
@@ -699,7 +700,7 @@ header {
 
 /* Alliance Layout 5.0 - Cinematic & Impactful */
 .ecosystem-dark {
-    background: #083344;
+    background: #083d4f;
     color: white;
 }
 
@@ -707,15 +708,27 @@ header {
 /* Manifesto Section 8.0 - Editorial High-End */
 /* Eco Simple 10.0 - Clean & Direct */
 .eco-simple {
-    background: #083344;
+    background: #083d4f;
     color: white;
+}
+
+.eco-simple .container {
+    max-width: 1600px;
 }
 
 .eco-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: var(--space-xxl);
+    grid-template-columns: 0.85fr 1.15fr;
+    gap: 6vw;
     align-items: center;
+}
+
+.eco-image {
+    justify-self: start;
+}
+
+.eco-text {
+    width: 100%;
 }
 
 .eco-image {
@@ -730,8 +743,8 @@ header {
 
 .eco-image img {
     width: 100%;
+    height: auto;
     display: block;
-    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
 }
 
 .eco-text .lead {
