@@ -570,6 +570,14 @@ header {
     margin-bottom: var(--space-sm);
 }
 
+.section-header p {
+    max-width: 600px;
+    margin: 0 auto;
+    color: var(--clr-text-muted);
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+
 /* Tech Pillars Structure */
 .tech-pillars {
     display: grid;
@@ -579,7 +587,7 @@ header {
 }
 
 .pillar-card {
-    padding: var(--space-xl) var(--space-md);
+    padding: 5rem var(--space-md);
     position: relative;
     background: white;
     border: 1px solid var(--clr-surface-muted);
