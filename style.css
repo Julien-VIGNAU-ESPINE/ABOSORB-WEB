@@ -761,29 +761,32 @@ header {
     margin-bottom: var(--space-xl);
 }
 
-.eco-stats-simple {
+.eco-commitments {
     display: flex;
-    gap: var(--space-xl);
+    gap: var(--space-lg);
+    margin-top: var(--space-lg);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: var(--space-md);
 }
 
-.stat-item {
+.commit-item {
     display: flex;
     flex-direction: column;
+    gap: 10px;
 }
 
-.stat-item strong {
-    font-size: 2.5rem;
+.commit-item i {
+    width: 24px;
+    height: 24px;
     color: var(--clr-primary);
-    font-family: 'Sora', sans-serif;
-    line-height: 1;
 }
 
-.stat-item span {
-    font-size: 0.85rem;
+.commit-item span {
+    font-size: 0.9rem;
+    font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 1px;
-    color: rgba(255, 255, 255, 0.5);
-    margin-top: 5px;
+    color: rgba(255, 255, 255, 0.8);
 }
 
 @media (max-width: 968px) {
