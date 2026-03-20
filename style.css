@@ -42,6 +42,7 @@
 html {
     scroll-behavior: smooth;
     font-size: 16px;
+    overflow-x: hidden;
 }
 
 body {
@@ -50,6 +51,8 @@ body {
     color: var(--clr-text-main);
     line-height: 1.6;
     overflow-x: hidden;
+    position: relative;
+    width: 100%;
 }
 
 h1,
@@ -157,6 +160,7 @@ body::before {
     justify-content: center;
     align-items: center;
     z-index: 10000;
+    overflow: hidden;
 }
 
 .loader-logo {
@@ -187,7 +191,7 @@ body::before {
 }
 
 .ripple-active .ripple-reveal {
-    animation: rippleSmooth 2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    animation: rippleSmooth 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
 @keyframes rippleSmooth {
@@ -300,12 +304,14 @@ header {
 @keyframes fadeInUp {
     from {
         opacity: 0;
-        transform: translateY(30px);
+        transform: translateY(20px);
+        filter: blur(10px);
     }
 
     to {
         opacity: 1;
         transform: translateY(0);
+        filter: blur(0);
     }
 }
 
@@ -406,12 +412,12 @@ header {
 /* Hero Section */
 .section-hero {
     height: 100vh;
+    height: 100dvh;
     display: flex;
     align-items: center;
     justify-content: center;
     position: relative;
     overflow: hidden;
-    background: url('hero-hybrid.png') no-repeat center center/cover;
 }
 
 .section-hero::before {
@@ -608,6 +614,12 @@ header {
     text-align: center;
     overflow: hidden;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+@media (max-width: 968px) {
+    .pillar-card {
+        padding: 3rem var(--space-sm);
+    }
 }
 
 .pillar-card::before {
@@ -1026,8 +1038,14 @@ footer {
 
 @media (max-width: 968px) {
     :root {
-        --space-xl: 5rem;
-        --space-xxl: 8rem;
+        --space-md: 1.25rem;
+        --space-lg: 2.5rem;
+        --space-xl: 3.5rem;
+        --space-xxl: 5rem;
+    }
+
+    .container {
+        padding: 0 var(--space-md);
     }
 
     .mobile-menu-toggle {
@@ -1040,14 +1058,15 @@ footer {
         right: -100%;
         width: 100%;
         height: 100vh;
+        height: 100dvh;
         background: rgba(255, 255, 255, 0.98);
-        backdrop-filter: blur(20px);
+        backdrop-filter: blur(25px);
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        gap: var(--space-xl);
-        transition: transform 0.6s cubic-bezier(0.8, 0, 0.2, 1);
+        gap: var(--space-lg);
+        transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
         z-index: 1000;
         opacity: 0;
         visibility: hidden;
@@ -1093,13 +1112,21 @@ footer {
         padding: var(--space-lg) var(--space-sm);
     }
 
+    .loader-logo {
+        max-height: 60px;
+    }
+
     .hero-subtitle {
-        font-size: 1.3rem;
-        text-shadow: 0 2px 10px white;
+        font-size: 1.2rem;
+        text-shadow: 0 0 20px white;
+        line-height: 1.4;
+        margin-bottom: var(--space-lg);
+        margin-top: 1.5rem;
     }
 
     .eco-text .big-title {
-        font-size: 3rem;
+        font-size: 2.5rem;
+        margin-bottom: var(--space-md);
     }
 
     .footer-grid {
