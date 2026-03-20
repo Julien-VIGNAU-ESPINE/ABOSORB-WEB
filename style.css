@@ -156,23 +156,18 @@ body::before {
 }
 
 .loader-logo {
-    font-size: 3rem;
-    font-weight: 800;
-    letter-spacing: -0.05em;
-    color: #ffffff;
+    max-height: 80px;
+    width: auto;
     position: relative;
     z-index: 101;
-    transition: color 0.8s ease;
-    /* Smooth transition when ripple starts */
+    transition: filter 0.8s ease;
+    filter: brightness(0) invert(1);
+    /* Initial white logo on dark background */
 }
 
 .ripple-active .loader-logo {
-    color: var(--clr-text-main);
-    /* Becomes Petroleum Blue when white background hits */
-}
-
-.loader-logo .dot {
-    color: var(--clr-primary);
+    filter: brightness(1);
+    /* Original dark logo on white background */
 }
 
 .ripple-reveal {
@@ -344,13 +339,14 @@ header {
 }
 
 .logo {
-    font-size: 1.8rem;
-    font-weight: 800;
-    letter-spacing: -0.05em;
+    display: flex;
+    align-items: center;
 }
 
-.logo span {
-    color: var(--clr-primary);
+.nav-logo {
+    height: 48px;
+    width: auto;
+    display: block;
 }
 
 .nav-links {
@@ -454,13 +450,11 @@ header {
     opacity: 0.9;
 }
 
-.hero-content h1 {
-    font-size: clamp(3.5rem, 12vw, 8rem);
-    line-height: 0.95;
-    margin-bottom: var(--space-md);
-    letter-spacing: -0.07em;
-    font-weight: 800;
-    color: var(--clr-text-main);
+.hero-logo {
+    width: auto;
+    max-width: clamp(200px, 40vw, 450px);
+    margin: 0 auto var(--space-md);
+    display: block;
 }
 
 .hero-subtitle {
@@ -932,7 +926,13 @@ footer {
     padding-top: var(--space-xl);
 }
 
-.footer-info h3,
+.footer-logo {
+    height: 40px;
+    width: auto;
+    margin-bottom: var(--space-sm);
+    display: block;
+}
+
 .footer-links h4,
 .footer-contact h4 {
     color: white;
