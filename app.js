@@ -8,9 +8,47 @@ document.addEventListener('DOMContentLoaded', () => {
     initImmersiveSequence();
 
     initHeader();
+    initMobileMenu();
     initScrollAnimations();
     initFiltrationSim();
 });
+
+function initMobileMenu() {
+    const toggle = document.querySelector('.mobile-menu-toggle');
+    const wrapper = document.querySelector('.nav-wrapper');
+    const body = document.body;
+
+    if (!toggle || !wrapper) return;
+
+    const icons = toggle.querySelectorAll('i');
+
+    const toggleMenu = (forceClose = false) => {
+        if (forceClose) {
+            wrapper.classList.remove('active');
+            body.classList.remove('menu-open');
+            icons[0].classList.remove('hidden');
+            icons[1].classList.add('hidden');
+        } else {
+            const isOpen = wrapper.classList.toggle('active');
+            body.classList.toggle('menu-open');
+            icons[0].classList.toggle('hidden', isOpen);
+            icons[1].classList.toggle('hidden', !isOpen);
+        }
+    };
+
+    toggle.addEventListener('click', () => toggleMenu());
+
+    // Close menu when clicking on a link
+    const navLinks = wrapper.querySelectorAll('a');
+    navLinks.forEach(link => {
+        link.addEventListener('click', () => toggleMenu(true));
+    });
+
+    // Close menu when clicking outside (on the overlay)
+    wrapper.addEventListener('click', (e) => {
+        if (e.target === wrapper) toggleMenu(true);
+    });
+}
 
 /**
  * Handles the preloader and entrance animations
